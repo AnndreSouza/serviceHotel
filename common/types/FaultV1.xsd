@@ -1,0 +1,31 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://telefonica.br/Common/Fault/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://telefonica.br/Common/Fault/v1" xmlns:etrace="http://telefonica.br/Common/ErrorTrace/v1">
+ 
+  <xs:import namespace="http://telefonica.br/Common/ErrorTrace/v1" schemaLocation="ErrorTrace.xsd"/>
+  
+  <xs:complexType name="InputValidationFaultType">
+    <xs:complexContent>
+      <xs:extension base="etrace:errorTraceType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InputValidationFault" type="tns:InputValidationFaultType"/>
+  <xs:complexType name="NotCalalogedFaultType">
+    <xs:complexContent>
+      <xs:extension base="etrace:errorTraceType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="MandatoryParameterMissingFaultType">
+    <xs:complexContent>
+      <xs:extension base="etrace:errorTraceType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MandatoryParameterMissingFault" type="tns:MandatoryParameterMissingFaultType"/>
+  
+  <xs:element name="NotCalalogedFault" type="tns:NotCalalogedFaultType"/>
+  <xs:complexType name="GeneralFaultType">
+    <xs:complexContent>
+      <xs:extension base="etrace:errorTraceType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GeneralFault" type="tns:GeneralFaultType"/>
+</xs:schema>

@@ -1,0 +1,42 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="RestReference">RestReference</doc>
+   <grammars>
+    <include href="../schemas/RestReference_response.xsd"/>
+  </grammars>
+   <resources base="https://cvcbackendhotel.herokuapp.com">
+      <resource path="/hotels/avail/{CityCode}">
+         <method name="GET" soa:wsdlOperation="RestReference">
+            <request soa:paramElement="pns:Request" xmlns:pns="Request">
+                
+               <param name="CityCode" style="template" soa:expression="$msg.requestRestReference/CityCode" type="xsd:int">
+                  <option value="json" mediaType="application/json"/>
+                  <option value="xml" mediaType="application/xml"/>
+               </param>
+               
+               <param name="Checkin" style="query" soa:expression="$msg.requestRestReference/Checkin" type="xsd:date">
+                  <option value="json" mediaType="application/json"/>
+                  <option value="xml" mediaType="application/xml"/>
+               </param>
+               <param name="Checkout" style="query" soa:expression="$msg.requestRestReference/Checkout" type="xsd:date">
+                  <option value="json" mediaType="application/json"/>
+                  <option value="xml" mediaType="application/xml"/>
+               </param>
+               <param name="QtdAdultos" style="query" soa:expression="$msg.requestRestReference/QtdAdultos" type="xsd:int">
+                  <option value="json" mediaType="application/json"/>
+                  <option value="xml" mediaType="application/xml"/>
+               </param>
+               <param name="QtdCriancas" style="query" soa:expression="$msg.requestRestReference/QtdCriancas" type="xsd:int">
+                  <option value="json" mediaType="application/json"/>
+                  <option value="xml" mediaType="application/xml"/>
+               </param>
+               
+            </request>
+            <response status="200">
+                
+               <ns0:representation mediaType="application/json" element="responseRestReference" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02"/>
+            </response>
+            
+         </method>
+      </resource>
+   </resources>
+</application>

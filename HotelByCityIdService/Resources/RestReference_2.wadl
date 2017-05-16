@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="RestReference_2">RestReference</doc>
+   <resources>
+      <resource path="/hotels/avail/{CityCode}">
+         <method name="GET" soa:name="RestReference">
+            <request>
+               <param name="CityCode" style="template" type="xsd:int"/>
+               <param name="Checkin" style="query" type="xsd:date"/>
+               <param name="Checkout" style="query" type="xsd:date"/>
+               <param name="QtdAdultos" style="query" type="xsd:int"/>
+               <param name="QtdCriancas" style="query" type="xsd:int"/>
+            </request>
+            <response>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

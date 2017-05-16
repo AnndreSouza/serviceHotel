@@ -1,0 +1,22 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="Login">RestReference</doc>
+  <grammars>
+    <include href="../schemas/HotelByCityId_response.xsd"/>
+  </grammars>
+  <resources>
+    <resource path="/hotels/avail/{CityCode}">
+      <method name="GET" soa:wsdlOperation="HotelByCityId">
+        <request soa:paramElement="pns:Request" xmlns:pns="Request">
+          <param name="CityCode" style="template" soa:expression="$msg.request/CityCode" type="xsd:int"/>
+          <param name="Checkin" style="query" soa:expression="$msg.request/Checkin" type="xsd:date"/>
+          <param name="Checkout" style="query" soa:expression="$msg.request/Checkout" type="xsd:date"/>
+          <param name="QtdAdultos" style="query" soa:expression="$msg.request/QtdAdultos" type="xsd:int"/>
+          <param name="QtdCriancas" style="query" soa:expression="$msg.request/QtdCriancas" type="xsd:int"/>
+        </request>
+        <response status="200">
+          <ns0:representation mediaType="application/json" element="response" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

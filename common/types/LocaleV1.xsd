@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema	elementFormDefault="qualified"
+	          xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://telefonica.br/Common/Locale/v1"
+	      xmlns:tns="http://telefonica.br/Common/Locale/v1">
+
+  <complexType name="LocaleType">
+    <sequence>
+      <element name="country" type="string" minOccurs="1" maxOccurs="1"/>
+      <element name="language" type="string" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+  
+  <element name="Locale" type="tns:LocaleType"/>
+  
+</schema>

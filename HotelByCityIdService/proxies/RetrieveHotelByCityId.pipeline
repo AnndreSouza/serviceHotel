@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="HotelByCityIdService/wsdl-wadl/HotelByCityId"/>
+            <con:binding>
+                <con:name>HotelByCityId_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe3">
+        <con:pipeline name="error-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe3" type="error">
+            <con:stage id="_StageId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e64" name="Custom_Treatments_Stage">
+                <con:context>
+                    <con1:userNsDecl prefix="con1" namespace="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="err" namespace="http://www.bea.com/wli/sb/errors" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e63</con2:id>
+                        <con1:case id="_BranchId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e62">
+                            <con1:condition>
+                                <con2:xqueryText>fn:not(fn:empty($theValidations/*))</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:delete varName="fault">
+                                    <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e61</con2:id>
+                                    <con1:location>
+                                        <con2:xpathText>./ctx:location</con2:xpathText>
+                                    </con1:location>
+                                </con1:delete>
+                                <con1:insert varName="fault">
+                                    <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e60</con2:id>
+                                    <con1:location>
+                                        <con2:xpathText>.</con2:xpathText>
+                                    </con1:location>
+                                    <con1:where>last-child</con1:where>
+                                    <con1:expr>
+                                        <con2:xqueryText>&lt;ctx:details/></con2:xqueryText>
+                                    </con1:expr>
+                                </con1:insert>
+                                <con1:replace varName="fault" contents-only="true">
+                                    <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e5f</con2:id>
+                                    <con1:location>
+                                        <con2:xpathText>./ctx:details</con2:xpathText>
+                                    </con1:location>
+                                    <con1:expr>
+                                        <con2:xqueryText>$theValidations</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con1:replace varName="fault" contents-only="true">
+                                    <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7e5e</con2:id>
+                                    <con1:location>
+                                        <con2:xpathText>./ctx:errorCode</con2:xpathText>
+                                    </con1:location>
+                                    <con1:expr>
+                                        <con2:xqueryText>'OSB-382505'</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:replace>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default/>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Fault_Preparation_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Atividade que preenche os parâmetros do erro, tais como: código TAM, código do legado, código
+                          da api e código do erro quando o mesmo estiver definido manualmente.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7f31</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="common/xquery/newIntegrationFault11"/>
+                                <con2:param name="tam">
+                                    <con2:path>'N/A'</con2:path>
+                                </con2:param>
+                                <con2:param name="provider">
+                                    <con2:path>'N/A'</con2:path>
+                                </con2:param>
+                                <con2:param name="fault">
+                                    <con2:path>$fault</con2:path>
+                                </con2:param>
+                                <con2:param name="api">
+                                    <con2:path>'N/A'</con2:path>
+                                </con2:param>
+                                <con2:param name="body">
+                                    <con2:path>$body</con2:path>
+                                </con2:param>
+                                <con2:param name="error">
+                                    <con2:path>$fault/ctx:errorCode</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Fault_Reply_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fab</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="common/xquery/newBody11"/>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Evitar propagação de namespaces do Endpoint para dentro do bus.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7286</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="common/xquery/newHeader11"/>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fa8</con2:id>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryText>$payload</con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                    <con2:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fae</con2:id>
+                    </con2:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline name="request-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fcf" type="request">
+            <con:stage name="Request_Preparation_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con2:userNsDecl prefix="th" namespace="http://telefonica.br/Common/TEFHeader/v1"/>
+                    <con2:userNsDecl prefix="sk" namespace="http://telefonica.br/common/technical/Logging/SearchKey/v1/types"/>
+                </con:context>
+                <con:actions>
+                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Recupera o primeiro elemento da requisição Alterar apenas se precisar de algum elemento filho
+                          da raíz da requisição</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ffa</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body/*[1]</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Request_Validation_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Especifica o esquema para validação da mensagem de entrada baseado no elemento de request</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff6</con2:id>
+                        <con3:schema ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
+                        <con3:schemaElement>Request</con3:schemaElement>
+                        <con3:varName>payload</con3:varName>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                    </con3:validate>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Request_Transformation_Stage">
+                <con:comment>Transformar a mensagem de entrada para remetê-la ao Endpoint.</con:comment>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:assign varName="toEndpoint" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>- Transforma o contrato da Camada de Integração (canonizado), no contrato do endpoint. - Na
+                          variável "toEndpoint" será armazenado o payload.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff2</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="HotelByCityIdService/specifications/transformations/RetrieveHotelByCityId_request_to_RestReference"/>
+                                <con2:param name="payload">
+                                    <con2:path>$payload</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con1:assign varName="duration">
+                        <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7df5</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:day-from-date($body/Request/Checkout) - fn:day-from-date($body/Request/Checkin)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:nxsdTranslation>
+                        <con2:id>_ActionId-N3f57c7ff.N15d1fbb0.0.15c0040caac.N7ed2</con2:id>
+                        <con1:type>XML-To-Native</con1:type>
+                        <con1:sourceExpr>
+                            <con2:xqueryText>$toEndpoint</con2:xqueryText>
+                        </con1:sourceExpr>
+                        <con1:nxsd ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
+                        <con1:schemaElement>Request</con1:schemaElement>
+                        <con1:assign-variable>payloadJSON</con1:assign-variable>
+                    </con1:nxsdTranslation>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline name="response-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fce" type="response">
+            <con:stage name="Response_Preparation_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:replace varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-7e2d232.N607e0a0a.0.158e651c1e0.N7fca</con2:id>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryText>&lt;soap-env:Body> {$payload} &lt;/soap-env:Body></con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                    <con3:assign varName="responsePayload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Recupera o primeiro elemento da resposta Alterar apenas se precisar de algum elemento filho da
+                          raíz da resposta</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fec</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body/*[1]</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con1:nxsdTranslation>
+                        <con2:id>_ActionId-N3f57c7ff.N15d1fbb0.0.15c0040caac.N7ecf</con2:id>
+                        <con1:type>Native-To-XML</con1:type>
+                        <con1:sourceExpr>
+                            <con2:xqueryText>$responsePayload</con2:xqueryText>
+                        </con1:sourceExpr>
+                        <con1:nxsd ref="HotelByCityIdService/schemas/RestReference_response"/>
+                        <con1:schemaElement>responseRestReference</con1:schemaElement>
+                        <con1:assign-variable>response</con1:assign-variable>
+                        <con1:enforceSchemaOrder>true</con1:enforceSchemaOrder>
+                    </con1:nxsdTranslation>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Response_Validation_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Especifica o esquema para validação da mensagem de saída baseado no elemento de resposta do
+                          routing</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.1e81c4ca.0.1533ef0e0db.N7fb9</con2:id>
+                        <con3:schema ref="HotelByCityIdService/schemas/RestReference_response"/>
+                        <con3:schemaElement>responseRestReference</con3:schemaElement>
+                        <con3:varName>response</con3:varName>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                    </con3:validate>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Response_Transformation_Stage">
+                <con:comment>Transforma a mensagem de saída para remetê-la à Camada de Exposição.</con:comment>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con1:assign varName="priceDurationAdult">
+                        <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7df2</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:data($response/response/Hotel/rooms/price/adult)*fn:data($duration)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="priceDurationChild">
+                        <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7def</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:data($response/response/Hotel/rooms/price/child)*fn:data($duration)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con3:assign varName="toExposition" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>- Transforma o contrato do Endpoint, no contrato da Camada de Integração (canonizado). - Na
+                          variável "toExposition" será armazenado o payload.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe8</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="HotelByCityIdService/specifications/transformations/RetrieveHotelByCityId_response_from_RestReference"/>
+                                <con2:param name="priceDurationAdult">
+                                    <con2:path>$priceDurationAdult</con2:path>
+                                </con2:param>
+                                <con2:param name="payload">
+                                    <con2:path>$response</con2:path>
+                                </con2:param>
+                                <con2:param name="priceDurationChild">
+                                    <con2:path>$priceDurationChild</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage name="Response_Reply_Stage">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Evitar propagação de namespaces do Endpoint.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fdd</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="common/xquery/newBody11"/>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Evitar propagação de namespaces do Endpoint para dentro do bus.</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7284</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="common/xquery/newHeader11"/>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe4</con2:id>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryText>$toExposition</con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Integration_Pair_OperationName">
+                <con:comment>Pipeline utiliza para operação única, permitindo realizar uma integração através de routing</con:comment>
+                <con:request>request-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fcf</con:request>
+                <con:response>response-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fce</con:response>
+            </con:pipeline-node>
+            <con:route-node name="Route_to_Endpoint">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:comment>Business Service ou Pipeline destino que será executado</con2:comment>
+                        <con2:id>_ActionId-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7f59</con2:id>
+                        <con1:service ref="HotelByCityIdService/business/RestReference_2" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>RestReference</con1:operation>
+                        <con1:outboundTransform>
+                            <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7ef4</con2:id>
+                                <con1:header-set>outbound-request</con1:header-set>
+                                <con1:header value="expression" name="Content-Type">
+                                    <con2:xqueryText>'application/x-www-form-urlencoded'</con2:xqueryText>
+                                </con1:header>
+                                <con1:header value="expression" name="Accept">
+                                    <con2:xqueryText>'application/json'</con2:xqueryText>
+                                </con1:header>
+                            </con1:transport-headers>
+                            <con3:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fef</con2:id>
+                                <con3:location>
+                                    <con2:xpathText>.</con2:xpathText>
+                                </con3:location>
+                                <con3:expr>
+                                    <con2:xqueryText>$payloadJSON</con2:xqueryText>
+                                </con3:expr>
+                            </con3:replace>
+                        </con1:outboundTransform>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

@@ -1,0 +1,35 @@
+<wsdl:definitions name="HotelByCityId" targetNamespace="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId" xmlns:tns="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <plnk:partnerLinkType name="HotelByCityId">
+    <plnk:role name="HotelByCityIdProvider" portType="tns:HotelByCityId_ptt"/>
+  </plnk:partnerLinkType>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:include schemaLocation="../schemas/HotelByCityId_request.xsd"/>
+      <xsd:include schemaLocation="../schemas/HotelByCityId_response.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="HotelByCityId_inputMessage">
+    <wsdl:part name="request" element="Request"/>
+  </wsdl:message>
+  <wsdl:message name="HotelByCityId_outputMessage">
+    <wsdl:part name="reply" element="response"/>
+  </wsdl:message>
+  <wsdl:portType name="HotelByCityId_ptt">
+    <wsdl:operation name="HotelByCityId">
+      <wsdl:input message="tns:HotelByCityId_inputMessage"/>
+      <wsdl:output message="tns:HotelByCityId_outputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HotelByCityId_ptt-binding" type="tns:HotelByCityId_ptt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="HotelByCityId">
+      <soap:operation soapAction="HotelByCityId"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

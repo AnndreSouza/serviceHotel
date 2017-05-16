@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema elementFormDefault="qualified"
+                     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	       targetNamespace="http://telefonica.br/Common/Service/v1"
+                     xmlns:tns="http://telefonica.br/Common/Service/v1">
+
+  <xsd:complexType name="ServiceType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="uri" type="xsd:anyURI" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="Service" type="tns:ServiceType"/>
+  
+</xsd:schema>

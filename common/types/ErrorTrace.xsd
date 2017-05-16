@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	attributeFormDefault="unqualified" 
+	elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://telefonica.br/Common/ErrorTrace/v1"
+	xmlns:tns="http://telefonica.br/Common/ErrorTrace/v1">
+
+	<xs:element name="errorTrace" type="tns:errorTraceType" />
+	
+	<xs:complexType name="codeType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="service" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="operation" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="layer" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="tamSystem" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="legacySystem" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="api" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="error" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="detailsType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="timeStamp" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="cause" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="errorTraceType">
+		<xs:sequence>
+			<xs:element type="tns:codeType" name="code" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="description" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="tns:detailsType" name="details" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

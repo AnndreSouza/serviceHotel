@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema	elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://telefonica.br/Common/Result/v1"
+	xmlns:rst="http://telefonica.br/Common/Result/v1">
+
+	<complexType name="ResultType">
+		<annotation>
+			<documentation>
+				Definição do resultado padrão para respostas.
+			</documentation>
+		</annotation>
+		
+		<sequence>
+			<element name="code" type="integer" minOccurs="0" maxOccurs="1"/>
+			<element name="description" type="string" minOccurs="0" maxOccurs="1"/>
+		</sequence>
+	</complexType>
+	
+	<element name="Result" type="rst:ResultType"/>
+	
+</schema>
