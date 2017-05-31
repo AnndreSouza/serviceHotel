@@ -159,7 +159,7 @@
                         <con2:comment>Especifica o esquema para validação da mensagem de entrada baseado no elemento de request</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff6</con2:id>
                         <con3:schema ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
-                        <con3:schemaElement>Request</con3:schemaElement>
+                        <con3:schemaElement xmlns:req="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">req:Request</con3:schemaElement>
                         <con3:varName>payload</con3:varName>
                         <con3:location>
                             <con2:xpathText>.</con2:xpathText>
@@ -200,6 +200,16 @@
                         <con1:schemaElement>Request</con1:schemaElement>
                         <con1:assign-variable>payloadJSON</con1:assign-variable>
                     </con1:nxsdTranslation>
+                    <con1:javaCallout varName="json">
+                        <con2:id>_ActionId-N3f577cff.N68274941.0.15c5c103c1b.N7ffe</con2:id>
+                        <con1:archive ref="HotelByCityIdService/proxies/commons-codec-1.10"/>
+                        <con1:className>org.apache.commons.codec.binary.StringUtils</con1:className>
+                        <con1:method>public static java.lang.String newStringUsAscii([B)</con1:method>
+                        <con1:expr>
+                            <con2:xqueryText>$payloadJSON</con2:xqueryText>
+                        </con1:expr>
+                        <con1:return-param-as-ref>false</con1:return-param-as-ref>
+                    </con1:javaCallout>
                 </con:actions>
             </con:stage>
         </con:pipeline>
@@ -342,7 +352,7 @@
                                 <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7ef4</con2:id>
                                 <con1:header-set>outbound-request</con1:header-set>
                                 <con1:header value="expression" name="Content-Type">
-                                    <con2:xqueryText>'application/x-www-form-urlencoded'</con2:xqueryText>
+                                    <con2:xqueryText>'application/json'</con2:xqueryText>
                                 </con1:header>
                                 <con1:header value="expression" name="Accept">
                                     <con2:xqueryText>'application/json'</con2:xqueryText>

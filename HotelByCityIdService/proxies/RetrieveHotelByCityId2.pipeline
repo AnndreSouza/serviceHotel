@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
     <con:coreEntry>
         <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
             <con:wsdl ref="HotelByCityIdService/wsdl-wadl/HotelByCityId"/>
@@ -14,7 +14,7 @@
     </con:coreEntry>
     <con:router errorHandler="error-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe3">
         <con:pipeline name="error-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe3" type="error">
-            <con:stage id="_StageId-N3f57c7ff.4f40272e.0.15c085626e7.N7e61" name="Custom_Treatments_Stage" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+            <con:stage id="_StageId-N3f57c7ff.4f40272e.0.15c085626e7.N7e61" name="Custom_Treatments_Stage">
                 <con:context>
                     <con1:userNsDecl prefix="con1" namespace="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
                     <con1:userNsDecl prefix="err" namespace="http://www.bea.com/wli/sb/errors" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
@@ -68,11 +68,11 @@
                 </con:actions>
             </con:stage>
             <con:stage name="Fault_Preparation_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                     <con2:userNsDecl prefix="conf" namespace="http://www.bea.com/wli/sb/stages/transform/config"/>
                 </con:context>
                 <con:actions>
-                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Atividade que preenche os parâmetros do erro, tais como: código TAM, código do legado, código da api e código do erro quando o mesmo estiver definido manualmente.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7f31</con2:id>
                         <con3:expr>
@@ -102,9 +102,9 @@
                 </con:actions>
             </con:stage>
             <con:stage name="Fault_Reply_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fab</con2:id>
                         <con2:locked>true</con2:locked>
                         <con3:expr>
@@ -113,7 +113,7 @@
                             </con2:xqueryTransform>
                         </con3:expr>
                     </con3:assign>
-                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Evitar propagação de namespaces do Endpoint para dentro do bus.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7286</con2:id>
                         <con2:locked>true</con2:locked>
@@ -123,7 +123,7 @@
                             </con2:xqueryTransform>
                         </con3:expr>
                     </con3:assign>
-                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fa8</con2:id>
                         <con2:locked>true</con2:locked>
                         <con3:location>
@@ -133,7 +133,7 @@
                             <con2:xqueryText>$payload</con2:xqueryText>
                         </con3:expr>
                     </con3:replace>
-                    <con2:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con2:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:id>_ActionId-N3f57c7ff.45ab6e65.0.15341b08666.N7fae</con2:id>
                         <con2:locked>true</con2:locked>
                     </con2:reply>
@@ -142,12 +142,12 @@
         </con:pipeline>
         <con:pipeline name="request-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fcf" type="request">
             <con:stage name="Request_Preparation_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                     <con2:userNsDecl prefix="th" namespace="http://telefonica.br/Common/TEFHeader/v1"/>
                     <con2:userNsDecl prefix="sk" namespace="http://telefonica.br/common/technical/Logging/SearchKey/v1/types"/>
                 </con:context>
                 <con:actions>
-                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Recupera o primeiro elemento da requisição
 Alterar apenas se precisar de algum elemento filho da raíz da requisição</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ffa</con2:id>
@@ -158,13 +158,13 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                 </con:actions>
             </con:stage>
             <con:stage name="Request_Validation_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Especifica o esquema para validação da mensagem de entrada baseado no elemento de request</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff6</con2:id>
                         <con3:schema ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
-                        <con3:schemaElement>Request</con3:schemaElement>
+                        <con3:schemaElement xmlns:req="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">req:Request</con3:schemaElement>
                         <con3:varName>payload</con3:varName>
                         <con3:location>
                             <con2:xpathText>.</con2:xpathText>
@@ -174,9 +174,15 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
             </con:stage>
             <con:stage name="Request_Transformation_Stage">
                 <con:comment>Transformar a mensagem de entrada para remetê-la ao Endpoint.</con:comment>
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:assign varName="toEndpoint" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con1:assign varName="duration">
+                        <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7db6</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:day-from-date($body/Request/Checkout) - fn:day-from-date($body/Request/Checkin)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con3:assign varName="toEndpoint" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>- Transforma o contrato da Camada de Integração (canonizado), no contrato do endpoint.
 - Na variável "toEndpoint" será armazenado o payload.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff2</con2:id>
@@ -189,13 +195,7 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                             </con2:xqueryTransform>
                         </con3:expr>
                     </con3:assign>
-                    <con1:assign varName="duration" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
-                        <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7db6</con2:id>
-                        <con1:expr>
-                            <con2:xqueryText>fn:day-from-date($body/Request/Checkout) - fn:day-from-date($body/Request/Checkin)</con2:xqueryText>
-                        </con1:expr>
-                    </con1:assign>
-                    <con1:nxsdTranslation xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                    <con1:nxsdTranslation>
                         <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7db3</con2:id>
                         <con1:type>XML-To-Native</con1:type>
                         <con1:sourceExpr>
@@ -205,12 +205,22 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                         <con1:schemaElement>Request</con1:schemaElement>
                         <con1:assign-variable>payloadJSON</con1:assign-variable>
                     </con1:nxsdTranslation>
+                    <con1:javaCallout varName="json">
+                        <con2:id>_ActionId-N3f577cff.Nf673111.0.15c1e7c168f.N7ffd</con2:id>
+                        <con1:archive ref="HotelByCityIdService/proxies/commons-codec-1.10"/>
+                        <con1:className>org.apache.commons.codec.binary.StringUtils</con1:className>
+                        <con1:method>public static java.lang.String newStringUsAscii([B)</con1:method>
+                        <con1:expr>
+                            <con2:xqueryText>$payloadJSON</con2:xqueryText>
+                        </con1:expr>
+                        <con1:return-param-as-ref>false</con1:return-param-as-ref>
+                    </con1:javaCallout>
                 </con:actions>
             </con:stage>
             <con:stage name="CallOut Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Business Service ou Pipeline destino que será executado</con2:comment>
                         <con2:id>_ActionId-N4038c7f3.4d58700c.0.15597a4eda8.N7f78</con2:id>
                         <con3:service ref="HotelByCityIdService/business/RestReference_2" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
@@ -225,10 +235,10 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                             <con3:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
                                 <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7d7f</con2:id>
                                 <con1:header-set>outbound-request</con1:header-set>
-                                <con1:header value="expression" name="Content-Type">
-                                    <con2:xqueryText>'application/x-www-form-urlencoded'</con2:xqueryText>
-                                </con1:header>
                                 <con1:header value="expression" name="Accept">
+                                    <con2:xqueryText>'application/json'</con2:xqueryText>
+                                </con1:header>
+                                <con1:header value="expression" name="Content-Type">
                                     <con2:xqueryText>'application/json'</con2:xqueryText>
                                 </con1:header>
                             </con3:transport-headers>
@@ -240,9 +250,9 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
         </con:pipeline>
         <con:pipeline name="response-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7fce" type="response">
             <con:stage name="Response_Preparation_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="payload" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Recupera o primeiro elemento da resposta
 Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fec</con2:id>
@@ -250,7 +260,7 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
                             <con2:xqueryText>fn:data($responseCallOut)</con2:xqueryText>
                         </con3:expr>
                     </con3:assign>
-                    <con1:nxsdTranslation xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                    <con1:nxsdTranslation>
                         <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7d33</con2:id>
                         <con1:type>Native-To-XML</con1:type>
                         <con1:sourceExpr>
@@ -264,9 +274,9 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
                 </con:actions>
             </con:stage>
             <con:stage name="Response_Validation_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:validate xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Especifica o esquema para validação da mensagem de saída baseado no elemento de resposta do routing</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.1e81c4ca.0.1533ef0e0db.N7fb9</con2:id>
                         <con3:schema ref="HotelByCityIdService/schemas/RestReference_response"/>
@@ -280,21 +290,21 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
             </con:stage>
             <con:stage name="Response_Transformation_Stage">
                 <con:comment>Transforma a mensagem de saída para remetê-la à Camada de Exposição.</con:comment>
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con1:assign varName="priceDurationAdult" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                    <con1:assign varName="priceDurationAdult">
                         <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7cff</con2:id>
                         <con1:expr>
                             <con2:xqueryText>fn:data($response/response/Hotel/rooms/price/adult)*fn:data($duration)</con2:xqueryText>
                         </con1:expr>
                     </con1:assign>
-                    <con1:assign varName="priceDurationChild" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                    <con1:assign varName="priceDurationChild">
                         <con2:id>_ActionId-N3f57c7ff.4f40272e.0.15c085626e7.N7cfc</con2:id>
                         <con1:expr>
                             <con2:xqueryText>fn:data($response/response/Hotel/rooms/price/child)*fn:data($duration)</con2:xqueryText>
                         </con1:expr>
                     </con1:assign>
-                    <con3:assign varName="toExposition" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="toExposition" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>- Transforma o contrato do Endpoint, no contrato da Camada de Integração (canonizado).
 - Na variável "toExposition" será armazenado o payload.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe8</con2:id>
@@ -316,9 +326,9 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
                 </con:actions>
             </con:stage>
             <con:stage name="Response_Reply_Stage">
-                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
+                <con:context xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"/>
                 <con:actions>
-                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Evitar propagação de namespaces do Endpoint.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fdd</con2:id>
                         <con2:locked>true</con2:locked>
@@ -328,7 +338,7 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
                             </con2:xqueryTransform>
                         </con3:expr>
                     </con3:assign>
-                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:assign varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Evitar propagação de namespaces do Endpoint para dentro do bus.</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.3b2c21e9.0.1535b5ee6c0.N7284</con2:id>
                         <con2:locked>true</con2:locked>
@@ -338,7 +348,7 @@ Alterar apenas se precisar de algum elemento filho da raíz da resposta</con2:co
                             </con2:xqueryTransform>
                         </con3:expr>
                     </con3:assign>
-                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con3:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7fe4</con2:id>
                         <con2:locked>true</con2:locked>
                         <con3:location>

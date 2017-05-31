@@ -1,14 +1,20 @@
-<wsdl:definitions name="RestReference" targetNamespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/RestReference" xmlns:tns="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/RestReference" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions name="RestReference" 
+targetNamespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/RestReference" 
+xmlns:tns="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/RestReference" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+xmlns:request="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">
     <wsdl:types>
         <xsd:schema>
-            <xsd:include schemaLocation="../schemas/HotelByCityId_request.xsd"/>
+            <xsd:import schemaLocation="../schemas/HotelByCityId_request.xsd" namespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request"/>
         </xsd:schema>
         <xsd:schema>
             <xsd:include schemaLocation="../schemas/RestReference_response.xsd"/>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="requestMessage">
-        <wsdl:part name="requestRestReference" element="Request"/>
+        <wsdl:part name="requestRestReference" element="request:Request"/>
     </wsdl:message>
     <wsdl:message name="replyMessage">
         <wsdl:part name="responseRestReferece" element="responseRestReference"/>

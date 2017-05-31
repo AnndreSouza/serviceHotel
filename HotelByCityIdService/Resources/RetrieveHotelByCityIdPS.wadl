@@ -1,8 +1,13 @@
-<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+<application 
+xmlns:soa="http://www.oracle.com/soa/rest" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://wadl.dev.java.net/2009/02"
+xmlns:request="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">
    <doc title="RetrieveHotelByCityIdPS">RestService</doc>
    <grammars>
-      <xsd:schema elementFormDefault="qualified" xmlns:tns="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-      <xsd:include schemaLocation="../schemas/HotelByCityId_request.xsd"/>
+    <xsd:schema elementFormDefault="qualified" xmlns:tns="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+      <xsd:import schemaLocation="../schemas/HotelByCityId_request.xsd" namespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request"/>
       <xsd:include schemaLocation="../schemas/HotelByCityId_response.xsd"/>
     </xsd:schema>
    </grammars>
@@ -10,7 +15,7 @@
       <resource path="/">
          <method name="GET" soa:wsdlOperation="HotelByCityId">
             <ns0:request soa:paramElement="Request" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02">
-               <param name="CityCode" style="query" soa:expression="$msg.request/CityCode" type="xsd:string" xmlns="http://wadl.dev.java.net/2009/02"/>
+               <param name="CityCode" style="query" soa:expression="$msg.request/CityCode" type="xsd:int" xmlns="http://wadl.dev.java.net/2009/02"/>
                <param name="Checkin" style="query" soa:expression="$msg.request/Checkin" type="xsd:string" xmlns="http://wadl.dev.java.net/2009/02"/>
                <param name="Checkout" style="query" soa:expression="$msg.request/Checkout" type="xsd:string" xmlns="http://wadl.dev.java.net/2009/02"/>
                <param name="QtdAdultos" style="query" soa:expression="$msg.request/QtdAdultos" type="xsd:string" xmlns="http://wadl.dev.java.net/2009/02"/>

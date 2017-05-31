@@ -1,16 +1,27 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+<application 
+xmlns:soa="http://www.oracle.com/soa/rest" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://wadl.dev.java.net/2009/02"
+xmlns:request="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">
    <doc title="RestReference_2">RestReference</doc>
+   <grammars>
+    <xsd:schema elementFormDefault="qualified" xmlns:tns="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+      <xsd:import schemaLocation="../schemas/HotelByCityId_request.xsd" namespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request"/>
+      <xsd:include schemaLocation="../schemas/HotelByCityId_response.xsd"/>
+    </xsd:schema>
+   </grammars>
    <resources>
       <resource path="/hotels/avail/{CityCode}">
          <method name="GET" soa:name="RestReference">
-            <request>
-               <param name="CityCode" style="template" type="xsd:int"/>
-               <param name="Checkin" style="query" type="xsd:date"/>
-               <param name="Checkout" style="query" type="xsd:date"/>
-               <param name="QtdAdultos" style="query" type="xsd:int"/>
-               <param name="QtdCriancas" style="query" type="xsd:int"/>
-            </request>
+            <ns0:request soa:paramElement="Request" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02">
+               <param name="CityCode" style="template" soa:expression="$msg.request/CityCode" type="xsd:int" xmlns="http://wadl.dev.java.net/2009/02"/>
+               <param name="Checkin" style="query" type="xsd:date" xmlns="http://wadl.dev.java.net/2009/02"/>
+               <param name="Checkout" style="query" type="xsd:date" xmlns="http://wadl.dev.java.net/2009/02"/>
+               <param name="QtdAdultos" style="query" type="xsd:int" xmlns="http://wadl.dev.java.net/2009/02"/>
+               <param name="QtdCriancas" style="query" type="xsd:int" xmlns="http://wadl.dev.java.net/2009/02"/>
+            </ns0:request>
             <response>
                <representation mediaType="application/json"/>
             </response>
