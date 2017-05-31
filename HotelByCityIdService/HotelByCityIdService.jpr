@@ -106,6 +106,8 @@
       <list n="technologyScope">
          <string v="SOA"/>
          <string v="ServiceBusTechnology"/>
+         <string v="WSDL"/>
+         <string v="WSPolicy"/>
          <string v="XML"/>
          <string v="XML_SCHEMA"/>
       </list>

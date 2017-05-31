@@ -4,14 +4,10 @@
     <include href="../schemas/HotelByCityId_response.xsd"/>
   </grammars>
   <resources>
-    <resource path="/hotels/avail/{CityCode}">
+    <resource path="/hotels/avail/{citycode}">
       <method name="GET" soa:wsdlOperation="HotelByCityId">
         <request soa:paramElement="pns:Request" xmlns:pns="Request">
-          <param name="CityCode" style="template" soa:expression="$msg.request/CityCode" type="xsd:int"/>
-          <param name="Checkin" style="query" soa:expression="$msg.request/Checkin" type="xsd:date"/>
-          <param name="Checkout" style="query" soa:expression="$msg.request/Checkout" type="xsd:date"/>
-          <param name="QtdAdultos" style="query" soa:expression="$msg.request/QtdAdultos" type="xsd:int"/>
-          <param name="QtdCriancas" style="query" soa:expression="$msg.request/QtdCriancas" type="xsd:int"/>
+          <param name="citycode" style="template" soa:expression="$msg.request/citycode" type="xsd:string"/>
         </request>
         <response status="200">
           <ns0:representation mediaType="application/json" element="response" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02"/>

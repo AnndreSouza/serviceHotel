@@ -159,7 +159,7 @@
                         <con2:comment>Especifica o esquema para validação da mensagem de entrada baseado no elemento de request</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff6</con2:id>
                         <con3:schema ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
-                        <con3:schemaElement xmlns:req="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">req:Request</con3:schemaElement>
+                        <con3:schemaElement>Request</con3:schemaElement>
                         <con3:varName>payload</con3:varName>
                         <con3:location>
                             <con2:xpathText>.</con2:xpathText>
@@ -210,6 +210,43 @@
                         </con1:expr>
                         <con1:return-param-as-ref>false</con1:return-param-as-ref>
                     </con1:javaCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-7e2d213.25694c76.0.15c5fb07ff5.N7fb7" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-7e2d213.25694c76.0.15c5fb07ff5.N7f84</con2:id>
+                        <con1:service ref="HotelByCityIdService/business/RestReference_2" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>HotelByCityId</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">request</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">response</con1:body>
+                        </con1:response>
+                        <con1:requestTransform>
+                            <con1:assign varName="request">
+                                <con2:id>_ActionId-7e2d213.25694c76.0.15c5fb07ff5.N7e55</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>&lt;Request>
+&lt;citycode>1032&lt;/citycode>
+&lt;/Request></con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con3:transport-headers xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con2:id>_ActionId-7e2d213.25694c76.0.15c5fb07ff5.N7f1b</con2:id>
+                                <con1:header-set>outbound-request</con1:header-set>
+                                <con1:header value="expression" name="Content-Type">
+                                    <con2:xqueryText>'application/json'</con2:xqueryText>
+                                </con1:header>
+                                <con1:header value="expression" name="Accept">
+                                    <con2:xqueryText>'application/json'</con2:xqueryText>
+                                </con1:header>
+                            </con3:transport-headers>
+                        </con1:requestTransform>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
                 </con:actions>
             </con:stage>
         </con:pipeline>
@@ -345,8 +382,9 @@
                     <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
                         <con2:comment>Business Service ou Pipeline destino que será executado</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.N79d5e6d5.0.15338ba981a.N7f59</con2:id>
+                        <con2:disabled>true</con2:disabled>
                         <con1:service ref="HotelByCityIdService/business/RestReference_2" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-                        <con1:operation>RestReference</con1:operation>
+                        <con1:operation>HotelByCityId</con1:operation>
                         <con1:outboundTransform>
                             <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
                                 <con2:id>_ActionId-N3f57c7ff.43c3e2c7.0.15bff7558be.N7ef4</con2:id>
@@ -364,7 +402,7 @@
                                     <con2:xpathText>.</con2:xpathText>
                                 </con3:location>
                                 <con3:expr>
-                                    <con2:xqueryText>$payloadJSON</con2:xqueryText>
+                                    <con2:xqueryText>$toEndpoint</con2:xqueryText>
                                 </con3:expr>
                             </con3:replace>
                         </con1:outboundTransform>

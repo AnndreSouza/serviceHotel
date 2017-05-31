@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-targetNamespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request"
+
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
             xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" 
@@ -9,11 +9,11 @@ targetNamespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Re
   <xsd:element name="Request">
     <xsd:complexType>
       <xsd:sequence>
-          <xsd:element name="CityCode" type="xsd:int" minOccurs="0" /> 
-          <xsd:element name="Checkin" type="xsd:date" minOccurs="0" /> 
-          <xsd:element name="Checkout" type="xsd:date" minOccurs="0" /> 
-          <xsd:element name="QtdAdultos" type="xsd:int" minOccurs="0" />
-          <xsd:element name="QtdCriancas" type="xsd:int" minOccurs="0" /> 
+          <xsd:element name="citycode" type="xsd:int" minOccurs="0" maxOccurs="1" /> 
+          <xsd:element name="Checkin" type="xsd:date" minOccurs="0" maxOccurs="1"/> 
+          <xsd:element name="Checkout" type="xsd:date" minOccurs="0" maxOccurs="1"/> 
+          <xsd:element name="QtdAdultos" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="QtdCriancas" type="xsd:int" minOccurs="0" maxOccurs="1"/> 
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

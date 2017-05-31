@@ -4,18 +4,18 @@ xmlns:tns="http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelBy
 xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-xmlns:request="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">
+>
   <plnk:partnerLinkType name="HotelByCityId">
     <plnk:role name="HotelByCityIdProvider" portType="tns:HotelByCityId_ptt"/>
   </plnk:partnerLinkType>
   <wsdl:types>
     <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <xsd:import schemaLocation="../schemas/HotelByCityId_request.xsd" namespace="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request"/>
+      <xsd:include schemaLocation="../schemas/HotelByCityId_request.xsd" />
       <xsd:include schemaLocation="../schemas/HotelByCityId_response.xsd"/>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="HotelByCityId_inputMessage">
-    <wsdl:part name="request" element="request:Request"/>
+    <wsdl:part name="request" element="Request"/>
   </wsdl:message>
   <wsdl:message name="HotelByCityId_outputMessage">
     <wsdl:part name="reply" element="response"/>

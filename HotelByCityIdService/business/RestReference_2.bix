@@ -2,9 +2,14 @@
 <con:businessServiceEntry xmlns:con="http://xmlns.oracle.com/servicebus/business/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oper="http://xmlns.oracle.com/servicebus/business/operations" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
     <con:coreEntry>
         <con:description>This service was created by the REST adapter</con:description>
-        <con1:binding type="native REST" xsi:type="con:NativeRestBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:con1="http://xmlns.oracle.com/servicebus/business/config">
-            <con:wadl ref="HotelByCityIdService/Resources/RestReference_2"/>
-        </con1:binding>
+        <con2:binding type="REST" xsi:type="con:RestBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:con2="http://xmlns.oracle.com/servicebus/business/config">
+            <con:wsdl ref="HotelByCityIdService/wsdl-wadl/HotelByCityId"/>
+            <con:binding>
+                <con:name>HotelByCityId_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/RESTApplication/RetrieveHotelByCityId/HotelByCityId</con:namespace>
+            </con:binding>
+            <con:wadl ref="HotelByCityIdService/wsdl-wadl/HotelByCityId"/>
+        </con2:binding>
         <oper:operations enabled="true">
             <oper:throttling enabled="false"/>
             <oper:resultCachingEnabled>true</oper:resultCachingEnabled>
@@ -12,17 +17,12 @@
         <con:ws-policy>
             <ser:binding-mode>no-policies</ser:binding-mode>
         </con:ws-policy>
-        <con:result-caching isSupported="true">
-            <con:tokenExpression>
-                <con1:xqueryText>$body/*[1]</con1:xqueryText>
-            </con:tokenExpression>
-            <con:ttlExpression source="request">
-                <con1:xqueryText>'PT10M'</con1:xqueryText>
-            </con:ttlExpression>
-        </con:result-caching>
         <con:xqConfiguration>
             <ser:snippetVersion>1.0</ser:snippetVersion>
         </con:xqConfiguration>
+        <con:restConfiguration>
+            <ser:enforceSchemaOrder>true</ser:enforceSchemaOrder>
+        </con:restConfiguration>
     </con:coreEntry>
     <con:endpointConfig>
         <tran:provider-id>http</tran:provider-id>
