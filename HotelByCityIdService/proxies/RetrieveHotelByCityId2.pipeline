@@ -164,7 +164,7 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                         <con2:comment>Especifica o esquema para validação da mensagem de entrada baseado no elemento de request</con2:comment>
                         <con2:id>_ActionId-N3f57c7ff.33a68266.0.1533c84aeb2.N7ff6</con2:id>
                         <con3:schema ref="HotelByCityIdService/schemas/HotelByCityId_request"/>
-                        <con3:schemaElement xmlns:req="http://xmlns.oracle.com/RESTApplication/HotelByCityIdService/Request">req:Request</con3:schemaElement>
+                        <con3:schemaElement>Request</con3:schemaElement>
                         <con3:varName>payload</con3:varName>
                         <con3:location>
                             <con2:xpathText>.</con2:xpathText>
@@ -224,12 +224,12 @@ Alterar apenas se precisar de algum elemento filho da raíz da requisição</con
                         <con2:comment>Business Service ou Pipeline destino que será executado</con2:comment>
                         <con2:id>_ActionId-N4038c7f3.4d58700c.0.15597a4eda8.N7f78</con2:id>
                         <con3:service ref="HotelByCityIdService/business/RestReference_2" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-                        <con3:operation>RestReference</con3:operation>
+                        <con3:operation>HotelByCityId</con3:operation>
                         <con3:request>
-                            <con3:payload wrapped="false">payloadJSON</con3:payload>
+                            <con3:body wrapped="false">toEndpoint</con3:body>
                         </con3:request>
                         <con3:response>
-                            <con3:payload wrapped="false">responseCallOut</con3:payload>
+                            <con3:body wrapped="false">responseCallOut</con3:body>
                         </con3:response>
                         <con3:requestTransform>
                             <con3:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
